@@ -39,11 +39,11 @@ include $(DEVKITPRO)/libnx/switch_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source
+SOURCES		:=	source source/ini
 DATA		:=	data
 INCLUDES	:=	include
 #ROMFS	:=	romfs
-
+CONFIG_JSON := sysmodule.json
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------

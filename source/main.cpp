@@ -106,9 +106,9 @@ Result LoadSysLihvConfig(SysLihvConfig *cfg)
     cfg->enabled               = 0;
     cfg->volt                  = 4208;
     cfg->current               = 2048;
-    cfg->temp_shutoff          = 60;
-    cfg->temp_no_charge        = 55;
-    cfg->temp_default_charge   = 45;
+    cfg->temp_shutoff          = 65;
+    cfg->temp_no_charge        = 60;
+    cfg->temp_default_charge   = 50;
 
     minIni ini(CONFIG_PATH);
 
@@ -133,6 +133,24 @@ int main(int argc, char* argv[])
     sku = (HorizonOCConsoleType)sku;
     bool isHoag = sku == HorizonOCConsoleType_Hoag ? true : false;
     u32 defaultChargeCurrent = isHoag ? 1792 : 2048;
+
+    FILE *f = fopen(CONFIG_PATH, "w");
+    if (!f) {
+        perror("Failed to open config file for writing");
+        return 1;
+    }
+
+    fprintf(f,
+        "[config]\n"
+        "enabled = 0\n"
+        "volt = 4208\n"
+        "current = 2048\n"
+        "temp_shutoff = 65\n"
+        "temp_no_charge = 60\n"
+        "temp_default_charge = 50\n"
+    );
+
+    fclose(f);
 
     if(cfg.enabled)
         for(;;) {
